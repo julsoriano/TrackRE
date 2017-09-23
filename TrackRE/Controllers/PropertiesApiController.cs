@@ -47,6 +47,7 @@ namespace TrackRE.Controllers
         [Route("~/api/types")]
         public IEnumerable<PropertyType> PropertyTypes()
         {
+            // Just a comment
             return db.PropertyTypes.ToArray();
         }
 
