@@ -1,0 +1,279 @@
+﻿@{
+    ViewBag.Title = "TrackRE";
+}
+
+<!-- Select Bar -->
+<div class ="row "id="proptype" data-bind="visible: items().length > 0" style="display: none">
+    <p>
+        Select from
+        <span data-bind="text: items().length"></span> property types:
+    </p>
+    <!-- http://getbootstrap.com/javascript/#dropdowns -->
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="proptypeDrop" data-toggle="dropdown">
+            Property Type
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="proptypeDrop" >
+            <li role="presentation">
+                <a role="menuitem" tabindex="-1" href="#" data-bind="attr: {class: 'classAll'}, click: $root.browse">
+                    All
+                </a>
+            </li>
+            <li role="presentation" class="divider"></li>
+            <li data-bind="foreach: items" role="presentation">
+                <a role="menuitem" tabindex="-1" href="#" data-bind="attr: {class: 'class' + name(), id: $index }, click: $parent.browse">
+                    <span data-bind="text: name"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- old working code
+    <p>
+        Select from
+        <span data-bind="text: items().length"></span> property types:
+    </p>
+    <ul data-bind="foreach: items">
+        <li>
+            <a href="#" data-bind="attr: {class: 'class' + name(), id: $index }, click: $parent.browse">
+                <span data-bind="text: name"></span>
+            </a>
+        </li>
+    </ul>
+    -->
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-5 col-sm-5">
+        <div id="prop" data-bind="visible: properties().length > 0" style="display: none">
+            <p>
+                Select from
+                <span data-bind="text: properties().length"></span>
+                <span data-bind="text: properties().length > 1 ? 'properties' : 'property'"></span>
+                <span data-bind="with: properties()[0]">(<span data-bind="text: proptype()"></span>)</span>
+            </p>
+            <ul data-bind="foreach: properties">
+                <li>
+                    <a href="#" data-bind="attr: {class: 'class' + id(), id: $index }, click: $parent.getproperty">
+                        <span data-bind="text: desc">: </span>
+                        <span data-bind="text: subtype"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div data-bind="visible: !properties().length > 0" style="display: none">
+            <p>No property</p>
+        </div>
+    </div>
+
+    <!--<div class="col-md-4" id="propdetail" data-bind="visible: !propertydetails() == '', with: propertydetails" style="display: none"> -->
+    <div class="col-md-6 col-sm-6" id="propdetail" data-bind="visible: idx() >= 0, with: properties()[idx()]" style="display: none">
+        <div data-bind="if: proptype() == 'Condo'">
+            <b>Unit:           </b><span data-bind="text:loc"></span>
+            <b>Type of Unit:   </b><span data-bind="text:subtype"></span>
+        </div>
+        <div data-bind="ifnot: proptype() == 'Condo'">
+            <b><span data-bind="text: proptype"></span>: </b><span data-bind="text:loc"></span>
+        </div>
+        <div>
+            <ul>
+                <li><pre><b>Owner:          </b><span data-bind="text:owner"></span></pre></li>
+                <li><pre><b>Price in PHP:   </b><span data-bind="text:price"></span></pre></li>
+                <li><pre><b>Community:      </b><span data-bind="text:community"></span></pre></li>
+            </ul>
+        </div>
+    </div>
+
+    <!--<div class="col-md-1" data-bind="visible: idx() >= 0" style="display: none"> -->
+    <div class="col-md-1 col-sm-1" data-bind="visible: idx() >= 0" style="display: none">
+        <button data-bind="click: showMap" class="btn btn-large btn-primary" type="button">Show map!</button>
+    </div>
+</div>
+
+<!-- Map -->
+<div class="row" data-bind="visible: idx() >= 0" style="display: none">
+    <hr />
+    <div class="col-md-9 col-sm-9">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <table>
+                    <tr>
+                        <th>Options</th>
+                    </tr>
+                    <tr>
+                        <th align="left">From:&nbsp;&nbsp;</th>
+                        <td>
+                            <input type="text" size="20" id="routeStart" name="from" data-bind="value: start" />
+                        <td>
+                    </tr>
+                    <tr>
+                        <th align="left">To:&nbsp;&nbsp;&nbsp;</th>
+                        <td align="right">
+                            <input type="text" size="20" id="routeEnd" name="to" data-bind="value: end" />
+                        <td>
+                    </tr>
+                    <tr>
+                        <th>Language:&nbsp;</th>
+                        <td colspan="3">
+                            <select id="locale" name="locale">
+                                <option value="en" selected>English</option>
+                                <option value="fr">French</option>
+                                <option value="de">German</option>
+                                <option value="ja">Japanese</option>
+                                <option value="es">Spanish</option>
+                            </select>
+                        <td>
+                    </tr>
+                    <tr>
+                        <th><input name="submit" type="submit" data-bind="click: calculate" value="Get Directions!" /></th>
+                    </tr>
+                </table>
+                <br />
+                <table>
+                    <tr>
+                        <th>Travel mode: &nbsp;&nbsp;</th>
+                    </tr>
+                    <tr>
+                        <td align="left"><label><input type="radio" name="routeTravelMode" value="DRIVING" data-bind="checked: travelMode" /> Driving</label></td>
+                    </tr>
+                    <tr>
+                        <td align="left"><label><input type="radio" name="routeTravelMode" value="TRANSIT" data-bind="checked: travelMode" /> Public transport</label></td>
+                    </tr>
+                    <tr>
+                        <td align="left"><label><input type="radio" name="routeTravelMode" value="WALKING" data-bind="checked: travelMode" /> Walking</label></td>
+                    </tr>
+                    <tr>
+                        <td align="left"><label><input type="radio" name="routeTravelMode" value="BICYCLING" data-bind="checked: travelMode" /> Bike (beta)</label></td>
+                    </tr>
+                </table>
+                <!--<button data-bind="click: calculate" class="btn btn-large btn-primary" type="button">Get directions!</button> -->
+                <article>
+                    <p>Finding your location: <span id="status">checking...</span></p>
+                </article>
+            </div>
+            <!--<div id="map" style="width:100%; height:400px"></div> -->
+            <div class="col-md-6 col-sm-6">
+                <table>
+                    <tr>
+                        <th style="width: 100%;">Map</th>
+                    </tr>
+                    <tr>
+                        <td valign="top">
+                            <div id="map" style="width: auto; height: 400px"></div>
+                        <td>
+                    </tr>
+                </table>
+                <!--<div id="map" style="width:100%; height:400px"></div> -->
+            </div>
+            <!--
+        <div>
+            <label>
+                <label>From:</label>
+                <input data-bind="value: start" type="text" id="routeStart" />
+                <label>To:</label>
+                <input data-bind="value: end" type="text" id="routeEnd" />
+            </label>
+        </div>
+        <div>
+            <label>Travel mode:</label>
+            <label><input type="radio" name="routeTravelMode" value="DRIVING" data-bind="checked: travelMode" /> Driving</label>
+            <label><input type="radio" name="routeTravelMode" value="TRANSIT" data-bind="checked: travelMode" /> Public transport</label>
+            <label><input type="radio" name="routeTravelMode" value="WALKING" data-bind="checked: travelMode" /> Walking</label>
+            <label><input type="radio" name="routeTravelMode" value="BICYCLING" data-bind="checked: travelMode" /> Bike (beta)</label>
+            <button data-bind="click: calculate" class="btn btn-large btn-primary" type="button">Get directions!</button>
+            <article>
+                <p>Finding your location: <span id="status">checking...</span></p>
+            </article>
+        </div>
+        -->
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-3">
+        <table>
+            <tr>
+                <th>Formatted Directions</th>
+            </tr>
+            <tr>
+                <td valign="top">
+                    <div id="directionsPanel" style="width: 400px"></div>
+                <td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- Directions -->
+<!--
+<div class="row" data-bind="visible: !propertydetails() == ''">
+    <div class="col-md-7" id="directionsPanel">
+    </div>
+    <div class="col-md-5">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Travel Mode</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: routes">
+                <tr>
+                    <td data-bind="text: $index()+1"></td>
+                    <td data-bind="text: startAddress"></td>
+                    <td data-bind="text: endAddress"></td>
+                    <td data-bind="text: travelMode"></td>
+                    <td><button class="btn btn-large btn-primary" type="button" data-bind="click: $parent.reload">Reload this!</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+-->
+@section scripts {
+    <!--Script references. -->
+    <script src="https://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+    <!--Reference the SignalR library. -->
+    <script src="~/Scripts/jquery.signalR-2.0.3.js"></script>
+    <!--Reference the autogenerated SignalR hub script. -->
+    <script src="~/signalr/hubs"></script>
+    <script>
+        $(function () {
+            $(".dropdown").hover(
+                function () {
+                    $('.dropdown-menu', this).stop(true, true).fadeIn("fast");
+                    $(this).toggleClass('open');
+                    $('b', this).toggleClass("caret caret-up");
+                },
+                function () {
+                    $('.dropdown-menu', this).stop(true, true).fadeOut("fast");
+                    $(this).toggleClass('open');
+                    $('b', this).toggleClass("caret caret-up");
+                });
+        });
+    </script>
+    <!--SignalR script to update the chat page and send messages.-->
+    <script src="~/Scripts/trackre.js"></script>
+    <!--
+    <style type="text/css">
+        body {
+            font-family: Verdana, Arial, sans serif;
+            font-size: 12px;
+            margin: 2px;
+        }
+
+        table.directions th {
+            background-color: #EEEEEE;
+        }
+
+        img {
+            color: #000000;
+        }
+    </style>
+        -->
+}

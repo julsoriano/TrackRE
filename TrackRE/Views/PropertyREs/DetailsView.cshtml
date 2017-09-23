@@ -1,0 +1,28 @@
+﻿@using System.Globalization;
+@model TrackRE.DTOs.PropertyREDTO
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2> Type: @Model.PropertyType  @Model.Description</h2>
+<ul>
+    @{if (Model.PropertyType == "Condo")
+    {
+        <li><pre><b>Unit:</b>             @Model.Location</pre></li>
+        <li><pre><b>Type of Unit:</b>     @Model.PropertyTypeSub</pre></li>
+    }
+    else
+    {
+        <li><pre><b>Location:</b>         @Model.Location</pre></li>
+    }
+    }
+    <li><pre><b>Owner:</b>            @Model.Owner</pre></li>
+    <li><pre><b>Price in PHP:</b>     @Model.Price.ToString("0,0", CultureInfo.InvariantCulture)</pre></li>
+    <li><pre><b>Community:</b>        @Model.Community</pre></li>
+</ul>
+<p>
+    <!-- Use 'null' as per  http://stackoverflow.com/questions/200476/html-actionlink-method -->
+    @* @Html.ActionLink("Edit", "Edit", "PropertyRE", new { id = Model.PropertyREId }, null) | *@
+    Back to : @Html.ActionLink("List of Property Types", "IndexView", "PropertyTypes") | @Html.ActionLink("List of Properties", "Browse", "PropertyREs", new { proptype = Model.PropertyType }, null)
+</p>

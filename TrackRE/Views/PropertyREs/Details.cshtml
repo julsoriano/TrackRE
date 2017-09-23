@@ -1,0 +1,75 @@
+﻿@* model TrackRE.Models.PropertyRE *@
+@model TrackRE.DTOs.PropertyREDTO
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PropertyRE</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Community)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Community)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Owner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Owner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PropertyType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PropertyType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PropertyTypeSub)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PropertyTypeSub)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PropertyREId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

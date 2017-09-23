@@ -1,0 +1,17 @@
+﻿@model IEnumerable<TrackRE.Models.PropertyType>
+
+@{
+    ViewBag.Title = "Property";
+}
+
+<h3>Browse Property Types</h3>
+<p>
+    Select from @Model.Count()
+    property types:
+</p>
+<ul>
+    @foreach (var proptype in Model)
+    {
+        <li>@Html.ActionLink(proptype.Name, "Browse", "PropertyREs", new { proptype = proptype.Name }, null)</li>
+    }
+</ul>

@@ -1,0 +1,55 @@
+﻿@using System;
+@using TrackRE.Models;
+
+@model IEnumerable<TrackRE.DTOs.PropertyREDTO>
+
+@{
+    ViewBag.Title = "Browse";
+}
+
+@*<h2>Property Type: </h2> *@
+
+<script>
+    function goBack() {
+        window.history.back()
+    }
+</script>
+<div>
+    @{
+        <h2>Property Type: @ViewBag.proptype</h2>
+        if (Model.Count() == 0)
+        {
+            <p>No Records</p>
+            <button onclick="goBack()">Go Back</button>
+        }
+        else
+        {
+            var prop = "";
+            foreach (var property in Model.OrderBy(g => g.PropertyTypeSub))
+            {
+                if (prop != property.PropertyTypeSub)
+                {
+                    if (prop != "")
+                    {
+                        @* Ignore warning on the foll. code *@
+                        @: </ul>
+                }
+                    prop = property.PropertyTypeSub;
+
+                    @* Ignore warning on the foll. code *@
+                    @: <ul>
+                        @property.PropertyTypeSub
+                }
+
+                <li>
+                    @Html.ActionLink(property.Description, "DetailsView", "PropertyREs", new { id = property.PropertyREId }, null)
+                </li>
+            }
+        }
+    }
+</div>
+<div>
+    <p>
+        @Html.ActionLink("Back to List of Property Types", "IndexView", "PropertyTypes")
+    </p>
+</div>
