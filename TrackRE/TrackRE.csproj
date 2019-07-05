@@ -24,6 +24,8 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,11 +45,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Elmah">
-      <HintPath>..\packages\elmah.1.2\lib\Elmah.dll</HintPath>
+    <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
-    <Reference Include="Elmah.Mvc">
-      <HintPath>..\packages\Elmah.MVC.2.1.1\lib\net40\Elmah.Mvc.dll</HintPath>
+    <Reference Include="Elmah.Mvc, Version=2.1.2.1389, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Elmah.Mvc.2.1.2\lib\net40\Elmah.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.0.3\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
@@ -241,6 +243,10 @@
     <Compile Include="Controllers\ApiControllerWithHub.cs" />
     <Compile Include="Controllers\PropertiesApiController.cs" />
     <Compile Include="DTOs\PropertyREDTO.cs" />
+    <Compile Include="Extensions\CredentialManager.cs" />
+    <Compile Include="Extensions\EmailSink.cs" />
+    <Compile Include="Extensions\EmailSinkExtensions.cs" />
+    <Compile Include="Extensions\PrefixEventTextFormatter.cs" />
     <Compile Include="Filters\InvalidModelStateFilterAttribute.cs" />
     <Compile Include="Hubs\TrackREHub.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -251,9 +257,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503060439222_InitialCreate.cs" />
-    <Compile Include="Migrations\201503060439222_InitialCreate.Designer.cs">
-      <DependentUpon>201503060439222_InitialCreate.cs</DependentUpon>
+    <Compile Include="Instrumentation\TrackREEvents.cs" />
+    <Compile Include="MenuSystem\DelegateMenuOption.cs" />
+    <Compile Include="MenuSystem\MenuDrivenApplication.cs" />
+    <Compile Include="MenuSystem\MenuOption.cs" />
+    <Compile Include="Migrations\201907040559026_InitialCreate.cs" />
+    <Compile Include="Migrations\201907040559026_InitialCreate.Designer.cs">
+      <DependentUpon>201907040559026_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -265,6 +275,7 @@
     <Compile Include="Models\PropertyTypeSub.cs" />
     <Compile Include="Models\SampleData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SemanticLogging\LogtoEmail.cs" />
     <Compile Include="ServicesAPI\CommunityService.cs" />
     <Compile Include="ServicesAPI\OwnerService.cs" />
     <Compile Include="ServicesAPI\PropertyService.cs" />
@@ -279,6 +290,7 @@
     <Content Include="App_Readme\Elmah.SqlAzure-NonClustered.sql" />
     <Content Include="App_Readme\Elmah.SqlServer.sql" />
     <Content Include="App_Readme\Elmah.SqlServer.txt" />
+    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -370,8 +382,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201503060439222_InitialCreate.resx">
-      <DependentUpon>201503060439222_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201907040559026_InitialCreate.resx">
+      <DependentUpon>201907040559026_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

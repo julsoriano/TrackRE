@@ -1,8 +1,8 @@
 ﻿#region USINGs
-//using CITT.SemanticLogging;
-//using CITT.Sinks.Email;
-//using DevGuideExample.MenuSystem;
-//using Microsoft.Practices.EnterpriseLibrary.SemanticLogging;
+using CITT.SemanticLogging;
+using CITT.Sinks.Email;
+using DevGuideExample.MenuSystem;
+using Microsoft.Practices.EnterpriseLibrary.SemanticLogging;
 
 using System;
 using System.Data.SqlClient;
@@ -11,8 +11,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-
-//using TrackRE.Instrumentation;
+using TrackRE.Instrumentation;
 
 using TrackRE.Models;
 #endregion
@@ -48,8 +47,8 @@ namespace TrackRE
         protected void Application_Start()
         {
             /* Run DB Initialization */
-            //Action seedDB = delegate() { SeedDB();} ;
-            //seedDB();
+            // Action seedDB = delegate() { SeedDB();} ;
+            // seedDB();
 
             //_azureListener = WindowsAzureTableLog.CreateListener("TrackRE", "UseDevelopmentStorage=true", "SLAB", TimeSpan.FromSeconds(1));
 
@@ -63,8 +62,8 @@ namespace TrackRE
             _azureListener.EnableEvents(TrackREEvents.Log, EventLevel.LogAlways, Keywords.All);
             TrackREEvents.Log.Startup();
             TrackREEvents.Log.Failure("Couldn't connect to server.");
-
-            NotifyViaEmail(); */
+            */
+            NotifyViaEmail();
 
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
@@ -105,7 +104,7 @@ namespace TrackRE
         }*/
 
         #region EMAIL NOTIFICATION
-        /*
+        
         private void NotifyViaEmail()
         {
             new MenuDrivenApplication("Semantic Logging Block Developer's Guide Examples",
@@ -122,13 +121,13 @@ namespace TrackRE
 
             // Log some messages
             //TrackREEvents.Log.Startup();
-            TrackREEvents.Log.Failure("Unable to initialize app");
+            TrackREEvents.Log.Failure("Message sent from Global.asax");
 
             // Disable the event listener - typically done when the application terminates
             listener.DisableEvents(TrackREEvents.Log);
             listener.Dispose();
         }
-        */
+        
         #endregion
 
         #region CREATE/SEED DATABASE
@@ -171,8 +170,8 @@ namespace TrackRE
         {
             for (int i = 0; i < exception.Errors.Count; i++)
             {
-                //CITTLogging.CITTLogToEmail("TrackRE: DB Initialization", "Index #" + i + "\n" +
-                //    "Error: " + exception.Errors[i].ToString() + "\n");
+                CITTLogging.CITTLogToEmail("TrackRE: DB Initialization", "Index #" + i + "\n" +
+                    "Error: " + exception.Errors[i].ToString() + "\n");
                 Console.WriteLine("Index #" + i + "\n" +
                     "Error: " + exception.Errors[i].ToString() + "\n");
             }

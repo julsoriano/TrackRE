@@ -39,6 +39,18 @@ namespace TrackRE.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            // https://articles.runtings.co.uk/2014/12/solved-aspnet-identity-2-throws.html
+            /*
+             *  Solves this issue: 
+             *  
+                Exception Details: System.Data.Entity.ModelConfiguration.ModelValidationException: One or more validation errors were detected during model generation:
+                TrackRE.Models.IdentityUserLogin: : EntityType 'IdentityUserLogin' has no key defined. Define the key for this EntityType.
+                TrackRE.Models.IdentityUserRole: : EntityType 'IdentityUserRole' has no key defined. Define the key for this EntityType.
+                IdentityUserLogins: EntityType: EntitySet 'IdentityUserLogins' is based on type 'IdentityUserLogin' that has no keys defined.
+                IdentityUserRoles: EntityType: EntitySet 'IdentityUserRoles' is based on type 'IdentityUserRole' that has no keys defined.            
+             */
+            base.OnModelCreating(modelBuilder);
         }       
     }
 }

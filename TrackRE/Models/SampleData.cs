@@ -8,9 +8,9 @@ using System.IO;
 
 namespace TrackRE.Models
 {
-    //public class SampleData : DropCreateDatabaseAlways<ApplicationDbContext>
-    //public class SampleData : CreateDatabaseIfNotExists<ApplicationDbContext>
-    public class SampleData : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
+    // public class SampleData : DropCreateDatabaseAlways<ApplicationDbContext>
+    public class SampleData : CreateDatabaseIfNotExists<ApplicationDbContext>
+    // public class SampleData : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
     /*
      * An implementation of IDatabaseInitializer<TContext>that will delete, recreate, and optionally re-seed the database with data 
      * only if the model has changed since the database was created. 

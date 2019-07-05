@@ -11,7 +11,7 @@ using TrackRE.Models;
 namespace TrackRE.Controllers
 {
     [AllowAnonymous]
-    //[Authorize(Roles = "canEdit")]
+    // [Authorize(Roles = "canEdit")]
     public class PropertyTypesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

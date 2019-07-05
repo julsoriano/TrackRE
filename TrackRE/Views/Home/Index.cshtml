@@ -2,19 +2,18 @@
     ViewBag.Title = "TrackRE";
 }
 
-<!-- Select Bar -->
-<div class ="row "id="proptype" data-bind="visible: items().length > 0" style="display: none">
+<!-- Select Bar. Dropdowns see: http://getbootstrap.com/javascript/#dropdowns  -->
+<div class="row " id="proptype" data-bind="visible: items().length > 0" style="display: none">
     <p>
         Select from
         <span data-bind="text: items().length"></span> property types:
     </p>
-    <!-- http://getbootstrap.com/javascript/#dropdowns -->
     <div class="dropdown">
         <button class="btn btn-default dropdown-toggle" type="button" id="proptypeDrop" data-toggle="dropdown">
             Property Type
             <span class="caret"></span>
         </button>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="proptypeDrop" >
+        <ul class="dropdown-menu" role="menu" aria-labelledby="proptypeDrop">
             <li role="presentation">
                 <a role="menuitem" tabindex="-1" href="#" data-bind="attr: {class: 'classAll'}, click: $root.browse">
                     All
@@ -40,8 +39,8 @@
                 <span data-bind="text: name"></span>
             </a>
         </li>
-    </ul>
-    -->
+    </ul> -->
+
 </div>
 
 <hr />
@@ -162,33 +161,33 @@
                     </tr>
                     <tr>
                         <td valign="top">
-                            <div id="map" style="width: auto; height: 400px"></div>
+                            <div id="map" style="width: 400px; height: 400px"></div>
                         <td>
                     </tr>
                 </table>
                 <!--<div id="map" style="width:100%; height:400px"></div> -->
             </div>
             <!--
-        <div>
-            <label>
-                <label>From:</label>
-                <input data-bind="value: start" type="text" id="routeStart" />
-                <label>To:</label>
-                <input data-bind="value: end" type="text" id="routeEnd" />
-            </label>
-        </div>
-        <div>
-            <label>Travel mode:</label>
-            <label><input type="radio" name="routeTravelMode" value="DRIVING" data-bind="checked: travelMode" /> Driving</label>
-            <label><input type="radio" name="routeTravelMode" value="TRANSIT" data-bind="checked: travelMode" /> Public transport</label>
-            <label><input type="radio" name="routeTravelMode" value="WALKING" data-bind="checked: travelMode" /> Walking</label>
-            <label><input type="radio" name="routeTravelMode" value="BICYCLING" data-bind="checked: travelMode" /> Bike (beta)</label>
-            <button data-bind="click: calculate" class="btn btn-large btn-primary" type="button">Get directions!</button>
-            <article>
-                <p>Finding your location: <span id="status">checking...</span></p>
-            </article>
-        </div>
-        -->
+            <div>
+                <label>
+                    <label>From:</label>
+                    <input data-bind="value: start" type="text" id="routeStart" />
+                    <label>To:</label>
+                    <input data-bind="value: end" type="text" id="routeEnd" />
+                </label>
+            </div>
+            <div>
+                <label>Travel mode:</label>
+                <label><input type="radio" name="routeTravelMode" value="DRIVING" data-bind="checked: travelMode" /> Driving</label>
+                <label><input type="radio" name="routeTravelMode" value="TRANSIT" data-bind="checked: travelMode" /> Public transport</label>
+                <label><input type="radio" name="routeTravelMode" value="WALKING" data-bind="checked: travelMode" /> Walking</label>
+                <label><input type="radio" name="routeTravelMode" value="BICYCLING" data-bind="checked: travelMode" /> Bike (beta)</label>
+                <button data-bind="click: calculate" class="btn btn-large btn-primary" type="button">Get directions!</button>
+                <article>
+                    <p>Finding your location: <span id="status">checking...</span></p>
+                </article>
+            </div>
+            -->
         </div>
     </div>
     <div class="col-md-3 col-sm-3">

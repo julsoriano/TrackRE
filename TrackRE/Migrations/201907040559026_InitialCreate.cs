@@ -8,7 +8,7 @@ namespace TrackRE.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Communities",
+                "dbo.Community",
                 c => new
                     {
                         CommunityId = c.Int(nullable: false, identity: true),
@@ -19,7 +19,7 @@ namespace TrackRE.Migrations
                 .PrimaryKey(t => t.CommunityId);
             
             CreateTable(
-                "dbo.PropertyREs",
+                "dbo.PropertyRE",
                 c => new
                     {
                         PropertyREId = c.Int(nullable: false, identity: true),
@@ -33,15 +33,15 @@ namespace TrackRE.Migrations
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                     })
                 .PrimaryKey(t => t.PropertyREId)
-                .ForeignKey("dbo.Communities", t => t.CommunityId, cascadeDelete: true)
-                .ForeignKey("dbo.Owners", t => t.OwnerID, cascadeDelete: true)
-                .ForeignKey("dbo.PropertyTypes", t => t.PropertyTypeId, cascadeDelete: true)
+                .ForeignKey("dbo.Community", t => t.CommunityId, cascadeDelete: true)
+                .ForeignKey("dbo.Owner", t => t.OwnerID, cascadeDelete: true)
+                .ForeignKey("dbo.PropertyType", t => t.PropertyTypeId, cascadeDelete: true)
                 .Index(t => t.PropertyTypeId)
                 .Index(t => t.CommunityId)
                 .Index(t => t.OwnerID);
             
             CreateTable(
-                "dbo.Owners",
+                "dbo.Owner",
                 c => new
                     {
                         OwnerID = c.Int(nullable: false, identity: true),
@@ -50,7 +50,7 @@ namespace TrackRE.Migrations
                 .PrimaryKey(t => t.OwnerID);
             
             CreateTable(
-                "dbo.PropertyTypes",
+                "dbo.PropertyType",
                 c => new
                     {
                         PropertyTypeId = c.Int(nullable: false, identity: true),
@@ -135,27 +135,27 @@ namespace TrackRE.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.PropertyREs", "PropertyTypeId", "dbo.PropertyTypes");
-            DropForeignKey("dbo.PropertyREs", "OwnerID", "dbo.Owners");
-            DropForeignKey("dbo.PropertyREs", "CommunityId", "dbo.Communities");
+            DropForeignKey("dbo.PropertyRE", "PropertyTypeId", "dbo.PropertyType");
+            DropForeignKey("dbo.PropertyRE", "OwnerID", "dbo.Owner");
+            DropForeignKey("dbo.PropertyRE", "CommunityId", "dbo.Community");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.PropertyREs", new[] { "OwnerID" });
-            DropIndex("dbo.PropertyREs", new[] { "CommunityId" });
-            DropIndex("dbo.PropertyREs", new[] { "PropertyTypeId" });
+            DropIndex("dbo.PropertyRE", new[] { "OwnerID" });
+            DropIndex("dbo.PropertyRE", new[] { "CommunityId" });
+            DropIndex("dbo.PropertyRE", new[] { "PropertyTypeId" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.PropertyTypes");
-            DropTable("dbo.Owners");
-            DropTable("dbo.PropertyREs");
-            DropTable("dbo.Communities");
+            DropTable("dbo.PropertyType");
+            DropTable("dbo.Owner");
+            DropTable("dbo.PropertyRE");
+            DropTable("dbo.Community");
         }
     }
 }

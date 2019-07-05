@@ -15,7 +15,7 @@ using TrackRE.ServicesClient;
 
 namespace TrackRE.Controllers
 {
-    [Authorize(Roles = "canEdit")]
+    // [Authorize(Roles = "canEdit")]
     public class PropertyREsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

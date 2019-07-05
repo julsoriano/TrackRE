@@ -7,14 +7,12 @@ namespace TrackRE.Migrations
     using TrackRE.Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
-
     internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
-
         bool AddUserAndRole(ApplicationDbContext context)
         {
             IdentityResult ir;
@@ -33,7 +31,6 @@ namespace TrackRE.Migrations
             ir = um.AddToRole(user.Id, "canEdit");
             return ir.Succeeded;
         }
-
         protected override void Seed(ApplicationDbContext context)
         {
             AddUserAndRole(context);
